@@ -19,51 +19,34 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:  
+  //Getting the value from the Variable resistor
   resVal = analogRead(analogPin);
 
+
+  //Assigning a closed led value based on the value of the variable resistor
+  int closed;
+  
   if(resVal < 205){
-    for(int i = 0; i < ledNum; i++){
-      digitalWrite(leds[i], HIGH);
-    }
+    closed = 0;
   } else if (resVal < 410) {
-    int closed = 1;
-    for(int i = 0; i < ledNum - closed; i++){
-      digitalWrite(leds[i], HIGH);
-    }
-
-    for (int i = ledNum - closed; i < ledNum; i++){
-      digitalWrite(leds[i], LOW);
-    }
+    closed = 1;
   } else if (resVal < 615) {
-    int closed = 2;
-    for(int i = 0; i < ledNum - closed; i++){
-      digitalWrite(leds[i], HIGH);
-    }
-
-    for (int i = ledNum - closed; i < ledNum; i++){
-      digitalWrite(leds[i], LOW);
-    }
+    closed = 2;
   } else if (resVal < 820) {
-    int closed = 3;
-    for(int i = 0; i < ledNum - closed; i++){
-      digitalWrite(leds[i], HIGH);
-    }
-
-    for (int i = ledNum - closed; i < ledNum; i++){
-      digitalWrite(leds[i], LOW);
-    }
-  }   else if (resVal < 1023) {
-    int closed = 4;
-    for(int i = 0; i < ledNum - closed; i++){
-      digitalWrite(leds[i], HIGH);
-    }
-
-    for (int i = ledNum - closed; i < ledNum; i++){
-      digitalWrite(leds[i], LOW);
-    }
+    closed = 3;
+  }  else if (resVal < 1023) {
+    closed = 4;
   } else {
-    for (int i = 0; i < ledNum; i++){
-      digitalWrite(leds[i], LOW);
-    }
+    closed = 5;
+  }
+
+
+  //activating the correct ammount of LED's
+  for(int i = 0; i < ledNum - closed; i++){
+    digitalWrite(leds[i], HIGH);
+  }
+
+  for (int i = ledNum - closed; i < ledNum; i++){
+    digitalWrite(leds[i], LOW);
   }
 }
